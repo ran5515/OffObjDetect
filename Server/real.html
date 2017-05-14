@@ -1,0 +1,49 @@
+<html>
+
+<head>
+
+<style>
+#CHL {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+</style>
+
+<script type="text/JavaScript">
+
+var timeoutPeriod = 100;
+var imageURI = '/darknet/predictions.png';
+var x=0, y=0;
+var img = new Image();
+img.onload = function() {
+    var canvas = document.getElementById("CHL");
+    canvas.height = this.height;
+	canvas.width = this.width;
+	var context = canvas.getContext("2d");
+	
+    context.drawImage(img, x, y);
+
+    setTimeout(timedRefresh,timeoutPeriod);
+};
+
+function timedRefresh() {
+    // just change src attribute, will always trigger the onload callback
+    img.src = imageURI + '?d=' + Date.now();
+}
+
+</script>
+
+<title>JavaScript Refresh Example</title>
+
+</head>
+
+<body onload="JavaScript:timedRefresh(1000);">
+
+<canvas id="CHL" width="0" height="0" />
+
+</body>
+</html>
